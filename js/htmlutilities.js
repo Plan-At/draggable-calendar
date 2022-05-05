@@ -32,6 +32,9 @@ export function small(body2){
 export function btn(classes, ...attributes){
   return make("input", classes, attributes);
 }
+export function button(classes, ...attributes){
+  return make("button", classes, attributes);
+}
 
 export function toast(...attributes){
   return div("toast", attributes);
@@ -60,3 +63,8 @@ function tag(tag,s){
   return [tag, s];
 }
 
+String.prototype.replaceAt = function (index, char) {
+  let a = this.split("");
+  a[index] = char;
+  return a.join("");
+}

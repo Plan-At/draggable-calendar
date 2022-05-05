@@ -30,7 +30,7 @@ export function daysInMonth(date){
 
 export function dayOfWeek(date){
     return (daysSince1970(date)+4)%7 +1;
-}
+}   
 
 // reeeeeeeeeeeeeeeee
 export function daysSince1970(date){
@@ -42,14 +42,31 @@ export function daysSince1970(date){
     const doe = yoe * 365 + ((yoe/4) | 0) - ((yoe/100) | 0) + doy;         // [0, 146096]
     return era * 146097 + (doe | 0) - 719468;
 }
+export function getHour(timeSince1970){
+    var d = date.day, m = date.month, y = date.year;
+    y -= m <= 2;
+    const era = ((y >= 0 ? y : y-399) / 400) | 0;
+    const yoe = ((y - era * 400)) | 0;      // [0, 399]
+    const doy = ((153*(m + (m > 2 ? -3 : 9)) + 2)/5 + d-1) | 0;  // [0, 365]
+    const doe = yoe * 365 + ((yoe/4) | 0) - ((yoe/100) | 0) + doy;         // [0, 146096]
+    return era * 146097 + (doe | 0) - 719468;
+}
+
 
 export class Time{
     constructor(hour, minute){
         this.hour = hour;
         this.minute = minute;
     }
-
+    hours(otherTime){
+        return otherTime.hour-this.hour;
+    }
     format(){
-        return (this.hour%12 +1)+":"+(this.minute < 10 ? "0" : "")+this.minute+(this.hour < 11 ? "AM" : "PM");
+        if(this.hour == 0) return "12:00AM";
+        return ((this.hour-1)%12 +1)+":"+(this.minute < 10 ? "0" : "")+this.minute+(this.hour < 12 ? "AM" : "PM");
+    }
+    add(hour, minute){
+        this.hour+=hour;
+        this.minute+=minute;
     }
 }

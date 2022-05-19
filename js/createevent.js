@@ -1,7 +1,7 @@
+import { newEvent } from './api.js';
 import { div, btn, button, id, type, drag, toast, strong, small, body, extraClass, value, create } from './htmlutilities.js';
-import { updateEntries } from './calendar.js';
 
-const calendar = document.getElementById("calendar");
+const calendar = document.getElementById("top");
 const but = btn("btn", extraClass("btn-primary"), type("button"), ["data-bs-toggle", "modal"], ["data-bs-target", "#createEvent"], value("Create Event"));
 
 const create2 = div("modal", extraClass("fade"), extraClass("needs-validation"), id("createEvent"), ["data-bs-backdrop", "static"], ["tabindex", -1],
@@ -41,7 +41,7 @@ create2.innerHTML = `
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+    <button type="button" id="createclose" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
     <button class="btn btn-primary" data-bs-target="#makeReoccuring" data-bs-toggle="modal">Make Reoccuring</button>
     <button type="submit" id="submitbutton" class="btn btn-primary">Submit</button>
   </div>
@@ -53,8 +53,8 @@ create2.innerHTML = `
 calendar.appendChild(but);
 calendar.appendChild(create2);
 
-var submit = document.getElementById("submitbutton");
-submit.addEventListener('click', submitButton);
+var submit2 = document.getElementById("submitbutton");
+submit2.addEventListener('click', submitButton);
 
 var timestampStart, timestampEnd;
 window.addEventListener("load", function (event) {
@@ -111,83 +111,13 @@ window.addEventListener("load", function (event) {
   });
 });
 
-
-export function submitButton() {
+export function submitButton(){
   const eventName = document.getElementById("event-name").value;
 
   const eventDesc = document.getElementById("event-desc").value;
-
-  // var timestampStart = getTimestamp(eventTimeStart, eventTimeStartSelect);
-  // var timestampEnd = getTimestamp(eventTimeEnd, eventTimeEndSelect);
-
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://api.752628.xyz/v1/add/user/calendar/event?person_id=1234567890");
-
-  xhr.setRequestHeader("Accept", "application/json");
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.setRequestHeader("pa-token", "aaaaaaaa");
-
-  xhr.onload = () => {
-    console.log(xhr.responseText);
-    updateEntries();
-  };
-  var stuffToSend = JSON.stringify({
-    "access_control_list": [
-      {
-        "canonical_name": "string",
-        "person_id": "1234567890",
-        "premission_list": [
-          "read_full",
-          "edit_full",
-          "delete"
-        ]
-      }
-    ],
-    "display_name": eventName,
-    "description": eventDesc,
-    "start_time": {
-      "text":"",
-      "timestamp": timestampStart,
-      "timezone_name": "string",
-      "timezone_offset": 0
-    },
-    "end_time": {
-      "text": "",
-      "timestamp": timestampEnd,
-      "timezone_name": "string",
-      "timezone_offset": 0
-    },
-    "type_list": [
-      {
-        "type_id": "string",
-        "name": "string"
-      }
-    ],
-    "tag_list": [
-      {
-        "tag_id": "string",
-        "name": "string"
-      }
-    ]
-  });
-  console.log(stuffToSend);
-  xhr.send(stuffToSend);
-
-
+  newEvent("1234567890", "aaaaaaaa", eventName, eventDesc, timestampStart, timestampEnd, ()=>{});
 }
-export function getTimestamp(eventTime, eventTimeSelect) {
-  var hours = parseInt(eventTime);
-  if (eventTimeSelect === "PM") {
-    hours += 12;
-    // hours = hours.toString();
-  }
-  else if (hours == 12) {
-    hours = 0;//"0" + hours.toString();
-  }
-  // console.log(eventTime);
-  // return new Date(eventDays + "T" + hours + ":" + eventTime.substring(2) + ":00").getTime()/1000;
-  return hours * 3600;
-}
+
 /*
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createEvent">
     Create Event

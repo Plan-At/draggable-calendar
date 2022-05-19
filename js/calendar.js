@@ -1,8 +1,8 @@
-import { div, btn, id, type, drag, body, value } from './htmlutilities.js'; // Or the extension could be just `.js`
+import { div, btn, id, type, drag, body, value, text } from './htmlutilities.js'; // Or the extension could be just `.js`
 import { Time } from './timeutlities.js';
-import { Day } from './day.js';
 import { Event } from './event.js';
-
+import { submitButton } from './createevent.js';
+import { get, getEvents, getIDs, updateEvent } from './api.js';
 
 const calendar = document.getElementById("calendar");
 
@@ -17,10 +17,11 @@ var grab = null;
 for (var i = 0; i < 8; i++) {
     var e3 = div("col", drag(false));
 
-    for (var j = 0; j < 24; j++) {
-        var f = div("box", id("box" + i + "" + j));
-        if (i == 0) {
-            f.appendChild(document.createTextNode(new Time(j, 0).format()));
+    for (var j = 0; j < 25; j++) {
+        if(j == 0){
+            e3.appendChild(div("box", text(i)));
+        } else if (i == 0) {
+            e3.appendChild(div("box", text(new Time(j-1, 0).format())));
             // e3.appendChild(div("box", (new Time(j+1, 0).format()+"--")));
         } else {
             // if(Math.random()<0.03){
@@ -30,6 +31,7 @@ for (var i = 0; i < 8; i++) {
             //     over.addEventListener('dragend', dragEnd);
             //     f.appendChild(over);
             //     events.set(f, ev);
+            var f = div("box", id("box"+(24*(i-1)+j-1)));
 
 
             // }
@@ -37,9 +39,8 @@ for (var i = 0; i < 8; i++) {
             f.addEventListener('dragover', dragOver);
             f.addEventListener('dragleave', dragLeave);
             f.addEventListener('drop', drop);
-
+            e3.appendChild(f);
         }
-        e3.appendChild(f);
         e2.appendChild(e3);
     }
 
@@ -48,94 +49,69 @@ for (var i = 0; i < 8; i++) {
 
 
 
-function eventOn(event, box) {
-    var over = event.overview;
-    over.addEventListener('dragstart', dragStart);
-    over.addEventListener('dragend', dragEnd);
-    events.set(box, event);
-    return event;
-}
 
-function split(event, size) {
-    var box = event.overview.parentNode;
+
+
+function boxDown(box) {
     let str = box.id;
-    var row = parseInt(str.charAt(3)), col = parseInt(str.substring(4, 6));
-    if (document.getElementById("box" + row + (col + event.totalTime() + size - 1)).childElementCount > 0) return;
-
-    event.endTime.add(size, 0);
-    event.overview.style.height = event.totalTime() * 50 + "px";
-
-    // if(box.childElementCount > 0) return;
-    // // alert(box.id);
-    // box.appendChild(eventOn(event.copy(), box).overview);
+    // console.log("box"+(parseInt(str.substring(3))+1));
+    return document.getElementById("box"+(parseInt(str.substring(3))+1));
 }
-
 export function updateEntries() {
+    
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://api.752628.xyz/v1/private/user/calendar/event/index?person_id=1234567890");
+    getIDs("1234567890", "aaaaaaaa", json => {
+        console.log(json);
+        getEvents(json.event_id_list, "aaaaaaaa", json2 => {
+            // console.log(JSON.parse(xhr2.responseText).result);
+            json2.result.forEach(info => {
+                // console.log(info);
+                for (let v of events.values()) {
+                    // console.log(v.content + "  " + info.event_id);
+                    if (v.id == info.event_id) {
+                        // console.log("match");
+                        return;
+                    }
+                }
 
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("pa-token", "aaaaaaaa");
-
-    xhr.onload = () => {
-        let json = JSON.parse(xhr.responseText);
-        console.log(xhr.responseText);
-        var eventArray = json.event_id_list;
-        console.log(eventArray);
-        eventArray.forEach(i => {
-            let xhr2 = new XMLHttpRequest();
-            console.log(i);
-            xhr2.open("GET", "https://api.752628.xyz/v1/universal/user/calendar/event?event_id=" + parseInt(i));
-
-            xhr2.setRequestHeader("Accept", "application/json");
-            xhr2.setRequestHeader("Content-Type", "application/json");
-            xhr2.setRequestHeader("pa-token", "aaaaaaaa");
-
-            xhr2.onload = () => {
-                console.log(xhr2.responseText);
-                let info = JSON.parse(xhr2.responseText);
                 var start = new Date(info.start_time.timestamp_int * 1000);
                 var end = new Date(info.end_time.timestamp_int * 1000);
+                var iddd = "box" + parseInt(start.getHours()+start.getDay()*24);
+                // console.log(iddd);
+                var f = document.getElementById(iddd);
+                if (events.get(f) != null || f == null) return;
+                
                 // console.log(end.getHours());
-                var ev = new Event(start, end, "Event: " + parseInt(i), split);
+                var ev = new Event(start, end, info.event_id, info.display_name, info.description);
                 var over = ev.overview;
                 over.addEventListener('dragstart', dragStart);
                 over.addEventListener('dragend', dragEnd);
-                var iddd = "box" + start.getDay() + "" + start.getHours();
-                console.log(iddd);
-                var f = document.getElementById(iddd);
+                // console.log(over.id);
                 f.appendChild(over);
-                if (events.get(f) != null) {
-                    // alert("bozo");
-                } else events.set(f, ev);
-            }
-
-            xhr2.send();
+                events.set(f, ev);
+            });
         });
-
-    };
-
-    xhr.send();
+    });
 }
+
 updateEntries();
 // alert(new Date(17, 3, 2000).dayOfWeek);
 
 calendar.appendChild(e2);
 
+var submit2 = document.getElementById("createEvent");
+submit2.addEventListener('hide.bs.modal', updateEntries);
 
 function dragStart(e) {
-    grab = e.target.parentNode;
+    console.log("start");
+    grab = events.get(e.target.parentNode);
     // e.preventDefault();
-    e.dataTransfer.setData('text', e.target.id);
-    setTimeout(() => {
-        e.target.classList.add('hide');
-    }, 0);
+    // e.dataTransfer.setData('text', e.target.id);
+    setTimeout(()=> e.target.style.display = 'none', 9);
 }
 
 function dragEnd(e) {
-    e.target.classList.remove('hide');
+    e.target.style.display = 'block';
 }
 
 
@@ -148,12 +124,14 @@ function dragEnter(e) {
 }
 
 function dragOver(e) {
-    if (e.target.classList.contains("box") && events.get(grab) != null && e.target.lastChild == null) {
+    if (e.target.classList.contains("box") && grab != null) {
+        // console.log(events.get(grab).totalTime());
         var box = e.target;
-        for (let i = 0; i < events.get(grab).totalTime(); i++) {
-            if (box.childElementCount > 0 && box != grab) return;
+        for (let i = 0; i < grab.totalTime(); i++) {
+            if (box == null ||( box.childElementCount > 0 && box != grab.parentNode)) return;
             else box = boxDown(box);
         }
+        
         e.preventDefault();
     }
 }
@@ -162,36 +140,12 @@ function dragLeave(e) {
     e.target.classList.remove('drag-over');
 }
 
-function boxLeft(box) {
-    let str = box.id;
-    var row = parseInt(str.charAt(3)), col = parseInt(str.substring(4, 6));
-    return document.getElementById("box" + (row - 1) + col);
-}
-function boxRight(box) {
-    let str = box.id;
-    var row = parseInt(str.charAt(3)), col = parseInt(str.substring(4, 6));
-    return document.getElementById("box" + (row + 1) + col);
-}
-function boxUp(box) {
-    let str = box.id;
-    var row = parseInt(str.charAt(3)), col = parseInt(str.substring(4, 6));
-    return document.getElementById("box" + row + (col - 1));
-}
-function boxDown(box) {
-    let str = box.id;
-    var row = parseInt(str.charAt(3)), col = parseInt(str.substring(4, 6));
-    return document.getElementById("box" + row + (col + 1));
-}
-
-
 function drop(e) {
     e.preventDefault();
 
     e.target.classList.remove('drag-over');
 
     // get the draggable element
-    const id = e.dataTransfer.getData('text');
-    const draggable = document.getElementById(id);
     // alert(draggable.parentElement.id);
 
     // draggable.parentElement.removeChild(draggable);
@@ -200,22 +154,24 @@ function drop(e) {
 
 
     if (e.target.classList.contains("box")) {
-        var ev = events.get(grab);
-        var over = ev.overview;
-        draggable.parentElement.removeChild(draggable.parentElement.lastChild);
-        e.target.appendChild(over)
-        events.set(e.target, ev);
-        events.delete(grab);
-
-
+        // console.log(ev.startTime);
+        var old = grab.overview.parentNode;
+        console.log(old.id);
+        console.log(e.target.id.substring(3)-old.id.substring(3));
+        grab.timeChange(parseInt(e.target.id.substring(3))-parseInt(old.id.substring(3)));
+        // console.log(ev.startTime);
+        // draggable.parentElement.removeChild(draggable.parentElement.firstChild);
+        events.set(e.target, grab);
+        events.delete(old);
+        e.target.appendChild(grab.overview);
+        updateEvent("1234567890", "aaaaaaaa", grab, ()=>{});
     }
 
 
 
     // display the draggable element
-    draggable.classList.remove('hide');
+    grab.overview.style.display = 'block';
 
-    e.dataTransfer.setData('text', "none");
     grab = null;
 
 

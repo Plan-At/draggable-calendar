@@ -8,8 +8,14 @@ function make(type, classes, attributes){
   for(let i = 0; i < attributes.length; i++){
     if(attributes[i][0] === "BODY"){
       div.body = attributes[i][1];
+    } else if(attributes[i][0] === "TEXT"){
+      div.appendChild(document.createTextNode(attributes[i][1]));
     } 
-    else if(attributes[i][0] === "CLASS") div.classList.add(attributes[i][1]);
+    else if(attributes[i][0] === "CLASS") {
+      for(let c of attributes[i][1]){
+        div.classList.add(c);
+      }
+    }
 
     else div.setAttribute(attributes[i][0], attributes[i][1]);
   }
@@ -56,11 +62,15 @@ export function drag(s){
 export function body(s){
   return tag("BODY", s);
 }
-export function extraClass(s){
-  return tag("CLASS", s);
+export function extraClass(...s){
+  return ["CLASS", s];
 }
-function tag(tag,s){
+function tag(tag, s){
   return [tag, s];
+}
+
+export function text(s){
+  return tag("TEXT", s);
 }
 
 String.prototype.replaceAt = function (index, char) {

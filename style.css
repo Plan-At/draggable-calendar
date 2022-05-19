@@ -16,15 +16,29 @@ h1 {
 }
 
 .container {
-    height: 100vh;
+    height: 800px;
+    width: 1500px;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* margin: 20px; */
+    overflow-y: scroll;
+    border: 5px solid #000000;
+    padding: 10px;
+
+}
+.head {
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* margin: 20px; */
+    padding: 10px;
+    border: 5px solid #000000;
 
 }
-
 .drop-targets {
     display: flex;
     flex-direction: row;
@@ -37,14 +51,14 @@ h1 {
 
 .box {
     height: 50px;
-    width: 100px;
+    width: 120px;
 
-    border-top: solid 1px #eee;
-    border-bottom: solid 1px #eee;
-    border-left: solid 3px #ccc;
-    border-right: solid 3px #ccc;
+    /* border-top: solid 1px #eee;
+    border-bottom: solid 1px #eee; */
+    border-left: solid 1px #999;
+    border-right: solid 1px #999;
     
-    margin-left: -30px;
+    margin-left: -25px;
 
     /* align items in the box */
     display: flex;
@@ -59,18 +73,8 @@ h1 {
     border: dashed 3px red;
 }
 
-.item {
-    position: absolute;
-    padding: 10px; 
-
-    padding-top: 3px;
-    width: 100px;
-    background-color: #777777;
-    display: flex;
-    border: 3px solid #cccccc;
-    /* align-items: center; */
-    justify-content: center;
-
+.card {
+    border-color: 2px #ff0000;
 }
 .dragger {
     margin-top: auto;
@@ -83,10 +87,5 @@ h1 {
 
 .item-top{
     border: 100px solid #ff0000;
-}
-
-
-.hide {
-    display: none;
 }
 

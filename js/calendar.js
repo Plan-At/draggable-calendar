@@ -11,6 +11,7 @@ var iii = 0;
 var jjjj = 0;
 
 const events = new Map();
+const daysOfWeek = ['Sunday', 'Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 var grab = null;
 
@@ -18,9 +19,9 @@ for (var i = 0; i < 8; i++) {
     var e3 = div("col", drag(false));
 
     for (var j = 0; j < 25; j++) {
-        if(j == 0){
-            e3.appendChild(div("box", text(i)));
-        } else if (i == 0) {
+        if(j == 0 && i != 0){
+            e3.appendChild(div("box", text(daysOfWeek[i-1])));
+        } else if (i == 0 && j != 0) {
             e3.appendChild(div("box", text(new Time(j-1, 0).format())));
             // e3.appendChild(div("box", (new Time(j+1, 0).format()+"--")));
         } else {
@@ -49,7 +50,8 @@ for (var i = 0; i < 8; i++) {
 
 
 
-
+var week = Date.now()/(1000*60*60*24*7)+0.6;
+document.getElementById("myweek").value = (1970+parseInt(week/(365.25/7))+"-W"+parseInt(week%(365.25/7)));
 
 
 function boxDown(box) {
@@ -58,10 +60,9 @@ function boxDown(box) {
     return document.getElementById("box"+(parseInt(str.substring(3))+1));
 }
 export function updateEntries() {
-    
-
+    events.forEach((ev, dv)=>dv.firstChild.remove());
+    events.clear();
     getIDs("1234567890", "aaaaaaaa", json => {
-        console.log(json);
         getEvents(json.event_id_list, "aaaaaaaa", json2 => {
             // console.log(JSON.parse(xhr2.responseText).result);
             json2.result.forEach(info => {
@@ -79,8 +80,11 @@ export function updateEntries() {
                 var iddd = "box" + parseInt(start.getHours()+start.getDay()*24);
                 // console.log(iddd);
                 var f = document.getElementById(iddd);
-                if (events.get(f) != null || f == null) return;
+                console.log(start.getTime()/(1000*60*60*24*7)+0.52);
+                if (events.get(f) != null || f == null || parseInt(start.getTime()/(1000*60*60*24*7)+0.52) != parseInt(week)) return;
                 
+    
+
                 // console.log(end.getHours());
                 var ev = new Event(start, end, info.event_id, info.display_name, info.description);
                 var over = ev.overview;
@@ -102,8 +106,16 @@ calendar.appendChild(e2);
 var submit2 = document.getElementById("createEvent");
 submit2.addEventListener('hide.bs.modal', updateEntries);
 
+
+var weekSelector = document.getElementById("myweek");
+weekSelector.addEventListener('input', ()=>{
+    var year = parseInt(weekSelector.value.substring(0, 4));
+    var wk = parseInt(weekSelector.value.substring(6));
+    week = (year-1970)*(365.25/7)+wk-0.2;
+    console.log(week);
+    updateEntries();
+})
 function dragStart(e) {
-    console.log("start");
     grab = events.get(e.target.parentNode);
     // e.preventDefault();
     // e.dataTransfer.setData('text', e.target.id);
@@ -156,8 +168,6 @@ function drop(e) {
     if (e.target.classList.contains("box")) {
         // console.log(ev.startTime);
         var old = grab.overview.parentNode;
-        console.log(old.id);
-        console.log(e.target.id.substring(3)-old.id.substring(3));
         grab.timeChange(parseInt(e.target.id.substring(3))-parseInt(old.id.substring(3)));
         // console.log(ev.startTime);
         // draggable.parentElement.removeChild(draggable.parentElement.firstChild);

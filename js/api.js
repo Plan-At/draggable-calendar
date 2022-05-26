@@ -1,8 +1,8 @@
 export function getIDs(user, token, callback) {
-    get("https://api.752628.xyz/v1/private/user/calendar/event/index?person_id=" + user, token, callback);
+    get("https://api.752628.xyz/v2/calendar/event/index", token, callback);
 }
 export function getEvents(events, token, callback) {
-    var url = "https://api.752628.xyz/v1/universal/user/calendar/multipleEvent?"
+    var url = "https://api.752628.xyz/v2/calendar/event/get?"
     events.forEach(i => url += ("event_id_list=" + parseInt(i) + "&"));
     get(url, token, callback);
 }
@@ -35,14 +35,14 @@ export function post(url, token, message, callback) {
     xhr.send(message);
 }
 export function updateEvent(user, token, event, callback){
-  post("https://api.752628.xyz/v1/update/user/calendar/event?event_id="+event.id, token, eventJSON(user, event.name, "eventDesc", event.startTime.valueOf()/1000, event.endTime.valueOf()/1000), callback);
+  post("https://api.752628.xyz/v2/calendar/event/edit?event_id="+event.id, token, eventJSON(user, event.name, "eventDesc", event.startTime.valueOf()/1000, event.endTime.valueOf()/1000), callback);
 }
 export function newEvent(user, token, eventName, eventDesc, start, end, callback){
-    post("https://api.752628.xyz/v1/add/user/calendar/event?person_id="+user, token, eventJSON(user, eventName, eventDesc, start, end), callback);
+    post("https://api.752628.xyz/v2/calendar/event/create", token, eventJSON(user, eventName, eventDesc, start, end), callback);
 }
 
 export function deleteEvent(token, event, callback){
-  post("https://api.752628.xyz/v1/delete/user/calendar/event?event_id="+event.id, token, "", callback);
+  post("https://api.752628.xyz/v2/calendar/event/delete?event_id="+event.id, token, "", callback);
 }
 
 export function eventJSON(user, eventName, eventDesc, start, end){

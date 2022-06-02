@@ -68,6 +68,15 @@ h1 {
 
 }
 
+.boxTop{
+    border-bottom: solid 1px #999;
+}
+
+.now {
+    background-color: #1286a3;
+    color: #062077;
+}
+
 
 .drag-over {
     border: dashed 3px red;

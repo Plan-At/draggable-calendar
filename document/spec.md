@@ -21,13 +21,28 @@
 |---|---|---|---|
 |-|2/15/2022|Initial Draft|Created this page|
 |Alex Stedman|4/19/2022|Rough Draft|Created base outline (main componenets)|
+||Alex Stedman|5/16/2022|Rough Draft|First semi-functional calendar app with api integration|
+||Alex Stedman|5/19/2022|Rough Draft|Found bugs on how dates were handled, calendar now accuratley shows dates|
+||Alex Stedman|5/23/2022|Rough Draft|Implemented create-event from Jack|
+||Alex Stedman|5/27/2022|Rough Draft|Added week selection and tried to fix scaling issues to no success|
+||Alex Stedman|5/31/2022|Rough Draft|Tried again to do formatting and failed|
+||Alex Stedman|6/2/2022|Rough Draft|Added an event manager from Jack that makes it easier to view all events|
+
+
+
+
+
 
 ## Functional Specification
 Draggable caldendar for Plan-At app 
+Pulls events from a server, and can push events
+per-user events
+Move between weeks, an automatically go to the most recent week
+
 
 ## Scenario Description
 
-TODO
+
 
 ## Feature Description
 Sections of the project:
@@ -36,4 +51,8 @@ Sections of the project:
    used vanilla js because people already knew it
 2. UI:
    wanted draggable stuff for ease of use
+3. Manage menu:
+   not all events are in the same week, so the manage menu allows you to view all events easier
+4. Current week highlighting
+   help the user find the current week
 

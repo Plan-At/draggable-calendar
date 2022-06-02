@@ -22,7 +22,7 @@ for (var i = 0; i < 8; i++) {
 
     for (var j = 0; j < 25; j++) {
         if(j == 0 && i != 0){
-            e3.appendChild(div("box", text(daysOfWeek[i-1])));
+            e3.appendChild(div("box", extraClass("boxTop",(i-1)==new Date().getDay() ? "now" : "notNow"), id((i-1)==new Date().getDay() ? "dated" : ""), text(daysOfWeek[i-1])));
         } else if (i == 0 && j != 0) {
             e3.appendChild(div("box", text(new Time(j-1, 0).format())));
             // e3.appendChild(div("box", (new Time(j+1, 0).format()+"--")));
@@ -51,7 +51,7 @@ for (var i = 0; i < 8; i++) {
 
 
 
-
+const wkNow = parseInt(Date.now()/(1000*60*60*24*7)+0.6);
 var week = Date.now()/(1000*60*60*24*7)+0.6;
 document.getElementById("myweek").value = (1970+parseInt(week/(365.25/7))+"-W"+parseInt(week%(365.25/7)));
 
@@ -85,8 +85,7 @@ export function updateEntries() {
                 console.log(start.getTime()/(1000*60*60*24*7)+0.52);
                 if (events.get(f) != null || f == null || parseInt(start.getTime()/(1000*60*60*24*7)+0.52) != parseInt(week)) return;
                 
-    
-
+                
                 // console.log(end.getHours());
                 var ev = new Event(start, end, info.event_id, info.display_name, info.description);
                 var over = ev.overview;
@@ -115,6 +114,8 @@ weekSelector.addEventListener('input', ()=>{
     var wk = parseInt(weekSelector.value.substring(6));
     week = (year-1970)*(365.25/7)+wk-0.2;
     console.log(week);
+    if(wkNow == parseInt(week)) document.getElementById("dated").classList.replace("notNow", "now");
+    else document.getElementById("dated").classList.replace("now", "notNow");
     updateEntries();
 })
 function dragStart(e) {

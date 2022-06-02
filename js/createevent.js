@@ -6,19 +6,7 @@ const but = btn("btn", extraClass("btn-primary"), type("button"), ["data-bs-togg
 
 const create2 = div("modal", extraClass("fade"), extraClass("needs-validation"), id("createEvent"), ["data-bs-backdrop", "static"], ["tabindex", -1],
   ["aria-labelledby", "createEventLabel"], ["aria-hidden", true]);
-// const dialog = div("modal-dialog");
-// const content = div("modal-content");
-// const header = div("modal-header");
-// const h5 = create("h5", "modal-title", id("createEventLabel"));
-// h5.appendChild(document.createTextNode("Create Event"));
-// header.appendChild(h5);
-// header.appendChild(btn("btn-close", type("button"), ["data-bs-dismiss", "modal"], ["aria-label", "Close"]));
-// content.appendChild(header);
-// const mbody = div("modal-body");
 
-
-// dialog.appendChild(content);
-// create2.appendChild(dialog);
 
 create2.innerHTML = `
 <div class="modal-dialog">

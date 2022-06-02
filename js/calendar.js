@@ -1,7 +1,9 @@
-import { div, btn, id, type, drag, body, value, text } from './htmlutilities.js'; // Or the extension could be just `.js`
+import { div, btn, id, type, drag, body, value, text, extraClass } from './htmlutilities.js'; // Or the extension could be just `.js`
 import { Time } from './timeutlities.js';
 import { Event } from './event.js';
-import { submitButton } from './createevent.js';
+import './createevent.js';
+import './manageevent.js';
+
 import { get, getEvents, getIDs, updateEvent } from './api.js';
 
 const calendar = document.getElementById("calendar");
@@ -78,7 +80,7 @@ export function updateEntries() {
                 var start = new Date(info.start_time.timestamp_int * 1000);
                 var end = new Date(info.end_time.timestamp_int * 1000);
                 var iddd = "box" + parseInt(start.getHours()+start.getDay()*24);
-                // console.log(iddd);
+                console.log(iddd);
                 var f = document.getElementById(iddd);
                 console.log(start.getTime()/(1000*60*60*24*7)+0.52);
                 if (events.get(f) != null || f == null || parseInt(start.getTime()/(1000*60*60*24*7)+0.52) != parseInt(week)) return;

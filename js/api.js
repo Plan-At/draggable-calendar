@@ -44,6 +44,9 @@ export function newEvent(user, token, eventName, eventDesc, start, end, callback
 export function deleteEvent(token, event, callback){
   post("https://api.752628.xyz/v2/calendar/event/delete?event_id="+event.id, token, "", callback);
 }
+export function deleteEventById(token, id, callback){
+  post("https://api.752628.xyz/v2/calendar/event/delete?event_id="+id, token, callback);
+}
 
 export function eventJSON(user, eventName, eventDesc, start, end){
   return JSON.stringify({

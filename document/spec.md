@@ -21,12 +21,12 @@
 |---|---|---|---|
 |-|2/15/2022|Initial Draft|Created this page|
 |Alex Stedman|4/19/2022|Rough Draft|Created base outline (main componenets)|
-||Alex Stedman|5/16/2022|Rough Draft|First semi-functional calendar app with api integration|
-||Alex Stedman|5/19/2022|Rough Draft|Found bugs on how dates were handled, calendar now accuratley shows dates|
-||Alex Stedman|5/23/2022|Rough Draft|Implemented create-event from Jack|
-||Alex Stedman|5/27/2022|Rough Draft|Added week selection and tried to fix scaling issues to no success|
-||Alex Stedman|5/31/2022|Rough Draft|Tried again to do formatting and failed|
-||Alex Stedman|6/2/2022|Rough Draft|Added an event manager from Jack that makes it easier to view all events|
+|Alex Stedman|5/16/2022|Rough Draft|First semi-functional calendar app with api integration|
+|Alex Stedman|5/19/2022|Rough Draft|Found bugs on how dates were handled, calendar now accuratley shows dates|
+|Alex Stedman|5/23/2022|Rough Draft|Implemented create-event from Jack|
+|Alex Stedman|5/27/2022|Rough Draft|Added week selection and tried to fix scaling issues to no success|
+|Alex Stedman|5/31/2022|Rough Draft|Tried again to do formatting and failed|
+|Alex Stedman|6/2/2022|Rough Draft|Added an event manager from Jack that makes it easier to view all events|
 
 
 

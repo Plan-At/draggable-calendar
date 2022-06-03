@@ -1,4 +1,4 @@
-export function getIDs(user, token, callback) {
+export function getIDs(token, callback) {
     get("https://api.752628.xyz/v2/calendar/event/index", token, callback);
 }
 export function getEvents(events, token, callback) {
@@ -7,35 +7,24 @@ export function getEvents(events, token, callback) {
     get(url, token, callback);
 }
 
+function xhrWrapper(method, url, token, message, callback){
+  let xhr = new XMLHttpRequest();
+  xhr.open(method, url);
+  xhr.setRequestHeader("Accept", "application/json");
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("pa-token", token);
+  if(callback != null) xhr.onload = () => callback(JSON.parse(xhr.responseText));
+  xhr.send(message);
+}
 export function get(url, token, callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("pa-token", token);
-
-    if(callback != null) xhr.onload = () => callback(JSON.parse(xhr.responseText));
-
-    xhr.send();
+  xhrWrapper("GET", url, token, null, callback);
 }
-
 export function post(url, token, message, callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url);
-
-    // console.log(message);
-
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("pa-token", token);
-
-    if(callback != null) xhr.onload = () => callback(JSON.parse(xhr.responseText));
-
-    xhr.send(message);
+  xhrWrapper("POST", url, token, message, callback);
 }
+
 export function updateEvent(user, token, event, callback){
-  post("https://api.752628.xyz/v2/calendar/event/edit?event_id="+event.id, token, eventJSON(user, event.name, "eventDesc", event.startTime.valueOf()/1000, event.endTime.valueOf()/1000), callback);
+  post("https://api.752628.xyz/v2/calendar/event/edit?event_id="+event.id, token, eventJSON(user, event.name, event.description, event.startTime.valueOf()/1000, event.endTime.valueOf()/1000), callback);
 }
 export function newEvent(user, token, eventName, eventDesc, start, end, callback){
     post("https://api.752628.xyz/v2/calendar/event/create", token, eventJSON(user, eventName, eventDesc, start, end), callback);

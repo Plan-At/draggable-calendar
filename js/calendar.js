@@ -64,7 +64,7 @@ function boxDown(box) {
 export function updateEntries() {
     events.forEach((ev, dv)=>dv.firstChild.remove());
     events.clear();
-    getIDs("1234567890", "aaaaaaaa", json => {
+    getIDs("aaaaaaaa", json => {
         getEvents(json.event_id_list, "aaaaaaaa", json2 => {
             // console.log(JSON.parse(xhr2.responseText).result);
             json2.result.forEach(info => {

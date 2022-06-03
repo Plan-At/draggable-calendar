@@ -30,7 +30,7 @@ calendar.appendChild(manage);
 var manageEvents = document.getElementById("manageEventsBody");  
   function testing() {
     manageEvents.innerHTML = null;
-    getIDs("1234567890", "aaaaaaaa", ids => getEvents(ids.event_id_list, "aaaaaaaa", evts => evts.result.forEach(i => displayEventList(i))));
+    getIDs("aaaaaaaa", ids => getEvents(ids.event_id_list, "aaaaaaaa", evts => evts.result.forEach(i => displayEventList(i))));
   }
   
   function displayEventList(eventInfo) {

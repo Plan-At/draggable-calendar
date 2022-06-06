@@ -31,7 +31,7 @@ export class Event {
     closeButton.addEventListener('click', ()=>{
       console.log("click");
       this.overview.remove();
-      deleteEvent("aaaaaaaa", this);
+      deleteEvent(this);
     });
 
     header.appendChild(closeButton);

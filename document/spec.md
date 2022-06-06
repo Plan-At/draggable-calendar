@@ -41,8 +41,10 @@ Move between weeks, an automatically go to the most recent week
 
 
 ## Scenario Description
-
-
+Calendar page with date highlighting for the current date.
+![calendar](./calendar.PNG)
+The calendar button box, allowing a person to select a week, create a new event, and manage event
+![header](./header.PNG)
 
 ## Feature Description
 Sections of the project:

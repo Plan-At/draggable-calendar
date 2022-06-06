@@ -30,7 +30,7 @@ calendar.appendChild(manage);
 var manageEvents = document.getElementById("manageEventsBody");  
   function testing() {
     manageEvents.innerHTML = null;
-    getIDs("aaaaaaaa", ids => getEvents(ids.event_id_list, "aaaaaaaa", evts => evts.result.forEach(i => displayEventList(i))));
+    getIDs(ids => getEvents(ids.event_id_list, evts => evts.result.forEach(i => displayEventList(i))));
   }
   
   function displayEventList(eventInfo) {
@@ -52,7 +52,7 @@ var manageEvents = document.getElementById("manageEventsBody");
     const edit = btn("btn", extraClass("btn-primary"), type("button"), value("Edit Event"));
     edit.addEventListener('click', ()=>{});
     const delt = btn("btn", extraClass("btn-danger"), type("button"), value("Delete Event"));
-    delt.addEventListener('click', ()=>deleteEventById("aaaaaaaa", eventInfo.event_id));
+    delt.addEventListener('click', ()=>deleteEventById(eventInfo.event_id));
     node.appendChild(edit);
     node.appendChild(delt);
 

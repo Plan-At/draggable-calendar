@@ -4,7 +4,7 @@ import { Event } from './event.js';
 import './createevent.js';
 import './manageevent.js';
 
-import { get, getEvents, getIDs, updateEvent } from './api.js';
+import { getEvents, getIDs, getUserId, updateEvent } from './api.js';
 
 const calendar = document.getElementById("calendar");
 
@@ -16,6 +16,8 @@ const events = new Map();
 const daysOfWeek = ['Sunday', 'Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 var grab = null;
+
+const user = getUserId();
 
 for (var i = 0; i < 8; i++) {
     var e3 = div("col", drag(false));
@@ -64,9 +66,9 @@ function boxDown(box) {
 export function updateEntries() {
     events.forEach((ev, dv)=>dv.firstChild.remove());
     events.clear();
-    getIDs("aaaaaaaa", json => {
-        getEvents(json.event_id_list, "aaaaaaaa", json2 => {
-            // console.log(JSON.parse(xhr2.responseText).result);
+    getIDs(json => {
+        getEvents(json.event_id_list, json2 => {
+            console.log(json2.result);
             json2.result.forEach(info => {
                 // console.log(info);
                 for (let v of events.values()) {
@@ -177,13 +179,12 @@ function drop(e) {
         events.set(e.target, grab);
         events.delete(old);
         e.target.appendChild(grab.overview);
-        updateEvent("1234567890", "aaaaaaaa", grab, ()=>{});
+        updateEvent(user, grab, ()=>{});
     }
 
 
 
     // display the draggable element
-    grab.overview.style.display = 'block';
 
     grab = null;
 
@@ -192,5 +193,4 @@ function drop(e) {
 
     // rowOfGrab = -1;
     // colOfGrab = -1;
-    e.target.style.csstext += "background-color:yellow,"
 }

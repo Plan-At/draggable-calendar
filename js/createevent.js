@@ -1,4 +1,4 @@
-import { newEvent } from './api.js';
+import { getUserId, newEvent } from './api.js';
 import { div, btn, button, id, type, drag, toast, strong, small, body, extraClass, value, create } from './htmlutilities.js';
 
 const calendar = document.getElementById("top");
@@ -103,5 +103,5 @@ export function submitButton() {
   const eventName = document.getElementById("event-name").value;
 
   const eventDesc = document.getElementById("event-desc").value;
-  newEvent("1234567890", "aaaaaaaa", eventName, eventDesc, timestampStart, timestampEnd, () => { });
+  newEvent(getUserId(), eventName, eventDesc, timestampStart, timestampEnd, () => { });
 }

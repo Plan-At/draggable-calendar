@@ -1,3 +1,5 @@
+import {getCookie} from "./cookies.js"; // need put full filepath since this is not a node module
+
 //get all event ids, then run the callback
 export function getIDs(callback) {
     get("https://api.752628.xyz/v2/calendar/event/index", callback);
@@ -109,8 +111,12 @@ export async function getUserId(){
 }
 //token stuff
 export function getToken(){
-  //TODO get davids code
-  return "aaaaaaaa";
+  // If return something null might cause 422 error when sending the request
+  const potentialToken = getCookie("pa-token");
+  if (potentialToken != null) {
+    return potentialToken;
+  }
+  return "";
 }
 
 //sleep for ms

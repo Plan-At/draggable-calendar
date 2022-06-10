@@ -4,6 +4,20 @@ import { Event } from './event.js';
 import './createevent.js';
 import './manageevent.js';
 import { getEvents, getIDs, getUserId, updateEvent } from './api.js';
+import {setCookie} from "./cookies.js";
+
+// get token from URL parameter
+const up = new URLSearchParams(window.location.search); //URLSearchParams() need the search attribute of window.location
+if (up.get("pa-token") != null && up.get("pa-token") !== ""){
+    console.log("token might presented in URL parameter");
+    console.log(`pa-token: ${up.get("pa-token")}`);
+    if (up.get("pa-token").length === 8){
+        setCookie("pa-token", up.get("pa-token"), 365);
+    }
+    else {
+        console.log("pa-token length not matched");
+    }
+}
 
 //root calendar class that manages everything
 

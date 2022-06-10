@@ -1,4 +1,4 @@
-import { deleteEvent, deleteEventById, getEvents, getIDs, getUserId, newEvent } from './api.js';
+import { deleteEvent, deleteEventById, getEvents, getIDs, getUserId, newEvent, sleep } from './api.js';
 import { div, btn, button, id, type, drag, toast, strong, small, body, extraClass, value, create } from './htmlutilities.js';
 import { editButton } from './editevent.js';
 
@@ -61,8 +61,11 @@ function displayEvent(eventInfo) {
   edit.addEventListener('click', ()=>document.getElementById("editbutton").onclick = function(){editButton(eventInfo.event_id)});
   // Creates a delete button, on click it uses the server to delete the event and refreshes the manage events modal
   const delt = btn("btn", extraClass("btn-danger"), type("button"), value("Delete Event"), id("delbutton"));
-  delt.addEventListener('click', ()=>deleteEventById("aaaaaaaa", eventInfo.event_id));
-  delt.addEventListener('click', displayEventList);
+  delt.addEventListener('click', ()=>deleteEventById(eventInfo.event_id));
+  delt.addEventListener('click', async ()=>{
+    await sleep(500);
+    displayEventList();
+  });
   // Adds the edit and delete buttons to the card, and then adds the card to the manage events modal
   node.appendChild(edit);
   node.appendChild(delt);

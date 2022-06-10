@@ -1,6 +1,6 @@
 import { deleteEvent } from './api.js';
 import { div, btn, id, type, drag, toast, strong, small, body, extraClass, value, create, text, button } from './htmlutilities.js';
-var acum = 1;
+//class for an event
 export class Event {
   constructor(startTime, endTime, id, name, description) {
     this.startTime = startTime;
@@ -10,15 +10,17 @@ export class Event {
     this.description = description;
     this.overview = this.getOverview();
   }
+  //modify the time of an event by a certain amount (useful for dragging operations)
   timeChange(hours){
     this.startTime.setTime(this.startTime.valueOf()+hours*3600000);
     this.endTime.setTime(this.endTime.valueOf()+hours*3600000);
     console.log(hours);
   }
-
+  //return int for how many hours in event
   totalTime() {
     return ((this.endTime.getHours()+24) - this.startTime.getHours())%24+1;
   }
+  //generate a div for the event
   getOverview() {
     var toast2 = div("card", extraClass("item"), id(this.name), drag("true"));
 
@@ -39,39 +41,6 @@ export class Event {
     var cardbody = div("card-body");
     cardbody.appendChild(create("input", "form-control", type("text"), value(this.description), ["rows", 3]));
     toast2.appendChild(cardbody);
-
-    // var button2 = btn("btn", type("button"), value("down"));
-
-    // button1.addEventListener('click', ()=>this.clickFunction(this, 1));
-    // button2.addEventListener('click', ()=>this.clickFunction(this, -1));
-
-    // toast2.appendChild(button1);
-
-    // toast2.appendChild(button2);
-    // let dragging = 0,  body = document.body;
-    // function clearJSEvents() {
-    //   dragging = 0;
-    //   body.removeEventListener("mousemove", resize);
-    //   body.classList.remove('resizing');
-    // }
-
-    // function resize(e) {
-    //   // if (e.pageY > 400 || e.pageY < 200) {
-    //   //   return;
-    //   // }
-    //   body.style.setProperty("--bottom-width", e.pageY + 'px');
-    // }
-
-    // toast2.onmousedown = function(e) {
-    //   e.preventDefault();
-    //   dragging = 1;
-    //   body.addEventListener('mousemove', resize);
-    //   body.classList.add('resizing');
-    // };
-
-    // document.onmouseup = function() {
-    //   dragging ? clearJSEvents() : '';
-    // };
     return toast2;
   }
 }

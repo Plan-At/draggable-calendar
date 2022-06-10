@@ -48,34 +48,8 @@ var timestampStart, timestampEnd;
 window.addEventListener("load", function (event) {
   let drp = new DateRangePicker('datetimerange-input1',
     {
-      //startDate: '2000-01-01',
-      //endDate: '2000-01-03',
-      //minDate: '2021-07-15 15:00',
-      //maxDate: '2021-08-16 15:00',
-      //maxSpan: { "days": 9 },
-      //showDropdowns: true,
-      //minYear: 2020,
-      //maxYear: 2022,
-      //showWeekNumbers: true,
-      //showISOWeekNumbers: true,
       timePicker: true,
-      //timePickerIncrement: 10,
-      //timePicker24Hour: true,
-      //timePickerSeconds: true,
-      //showCustomRangeLabel: false,
       alwaysShowCalendars: true,
-      //opens: 'center',
-      //drops: 'up',
-      //singleDatePicker: true,
-      //autoApply: true,
-      //linkedCalendars: false,
-      //isInvalidDate: function(m){
-      //    return m.weekday() == 3;
-      //},
-      //isCustomDate: function(m){
-      //    return "weekday-" + m.weekday();
-      //},
-      //autoUpdateInput: false,
       ranges: {
         'Today': [moment().startOf('day'), moment().endOf('day')],
         'Yesterday': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
@@ -87,10 +61,8 @@ window.addEventListener("load", function (event) {
       }
     },
     function (start, end) {
-      // alert(start.format() + " - " + end.format());
     })
-  //drp.setStartDate('2014/03/01');
-  //drp.setEndDate('2014/03/03');
+
   window.addEventListener('apply.daterangepicker', function (ev) {
     console.log(ev.detail.startDate.unix());
     console.log(ev.detail.endDate.unix());
@@ -103,5 +75,6 @@ export function submitButton() {
   const eventName = document.getElementById("event-name").value;
 
   const eventDesc = document.getElementById("event-desc").value;
-  newEvent(getUserId(), eventName, eventDesc, timestampStart, timestampEnd, () => { });
+  newEvent(getUserId(), eventName, eventDesc, timestampStart, timestampEnd, json => console.log(json));
+
 }

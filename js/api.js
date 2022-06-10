@@ -31,9 +31,13 @@ export function post(url, message, callback) {
   xhrWrapper("POST", url,  message, callback);
 }
 
-//update existing event
+//update existing event from the event object
 export function updateEvent(user, event, callback){
   post("https://api.752628.xyz/v2/calendar/event/edit?event_id="+event.id, eventJSON(user, event.name, event.description, event.startTime.valueOf()/1000, event.endTime.valueOf()/1000), callback);
+}
+// Edits an already existing event with new information
+export function editEvent(user, eventId, eventName, eventDesc, start, end, callback){
+  post("https://api.752628.xyz/v2/calendar/event/edit?event_id="+eventId, eventJSON(user, eventName, eventDesc, start, end), callback);
 }
 //create a new event
 export function newEvent(user, eventName, eventDesc, start, end, callback){

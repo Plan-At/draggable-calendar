@@ -27,6 +27,7 @@
 |Alex Stedman|5/27/2022|Rough Draft|Added week selection and tried to fix scaling issues to no success|
 |Alex Stedman|5/31/2022|Rough Draft|Tried again to do formatting and failed|
 |Alex Stedman|6/2/2022|Rough Draft|Added an event manager from Jack that makes it easier to view all events|
+|Alex Stedman|6/10/2022|Production|Cleaned up event manager, and added more of jack's code|
 
 
 
@@ -38,6 +39,7 @@ Draggable caldendar for Plan-At app
 Pulls events from a server, and can push events
 per-user events
 Move between weeks, an automatically go to the most recent week
+view and edit all events in a separate menu
 
 
 ## Scenario Description
@@ -45,6 +47,7 @@ Calendar page with date highlighting for the current date.
 ![calendar](./calendar.PNG)
 The calendar button box, allowing a person to select a week, create a new event, and manage event
 ![header](./header.PNG)
+
 
 ## Feature Description
 Sections of the project:

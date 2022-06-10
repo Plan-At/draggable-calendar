@@ -13,6 +13,7 @@ if (up.get("pa-token") != null && up.get("pa-token") !== ""){
     console.log(`pa-token: ${up.get("pa-token")}`);
     if (up.get("pa-token").length === 8){
         setCookie("pa-token", up.get("pa-token"), 365);
+        window.location = "index.html"; // remove all url parameter so the token not getting leaked
     }
     else {
         console.log("pa-token length not matched");

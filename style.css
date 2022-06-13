@@ -6,9 +6,9 @@
 }
 
 
-h1 {
+/* h1 {
     color: #323330;
-}
+} */
 
 .container {
     height:100vh;
@@ -29,7 +29,7 @@ h1 {
 .head {
     
     position: relative;
-    width: 200px;
+    width: 13vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -55,10 +55,11 @@ h1 {
     width: 135px;
     position: relative;
 
+    margin-left: -1.7em;
     /* border-top: solid 1px #eee;
     border-bottom: solid 1px #eee; */
-    border-left: solid 1px #999;
-    border-right: solid 1px #999;
+    border-left: solid 0.2em #999;
+    border-right: solid 0.2em #999;
 
 
     /* align items in the box */
@@ -70,7 +71,7 @@ h1 {
 }
 
 .boxTop{
-    border-bottom: solid 1px #999;
+    border: solid 0.3em #999;
 }
 
 .now {

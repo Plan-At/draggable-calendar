@@ -30,8 +30,8 @@ export function div(classes, ...attributes){
 }
 
 // make strong text
-export function strong(classes, body2){
-  return make("strong", classes, body(body2));
+export function strong(body2){
+  return make("strong", null, body(body2));
 }
 
 // make small text

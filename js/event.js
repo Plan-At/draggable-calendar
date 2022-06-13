@@ -39,7 +39,7 @@ export class Event {
     header.appendChild(closeButton);
     toast2.appendChild(header);
     var cardbody = div("card-body");
-    cardbody.appendChild(create("input", "form-control", type("text"), value(this.description), ["rows", 3]));
+    cardbody.appendChild(document.createTextNode(this.description));
     toast2.appendChild(cardbody);
     return toast2;
   }

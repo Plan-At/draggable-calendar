@@ -1,0 +1,362 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap');
+
+:root {
+    --primary: #0d6efd;
+    --dark: #21252f;
+    --body: #888;
+    --white: #ffffff;
+    --box-shadow: 0 8px 22px rgba(0,0,0,0.1);
+}
+
+.subbody {
+    font-family: "Sora", sans-serif;
+    line-height: 1.7;
+    color: var(--body);
+    display: inline-flex;
+}
+body {
+    font-family: "Sora", sans-serif;
+    line-height: 1.7;
+    color: var(--body);
+}
+
+h1,h2,h3,h4,h5,h6,
+.display-4 {
+    color: var(--dark);
+    font-weight: 700;
+}
+
+a {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+img {
+    width: 100%;
+}
+
+.navbar {
+    box-shadow: var(--box-shadow);
+}
+
+.logo {
+    width: 160px;
+}
+
+.navbar .nav-link {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.navbar .nav-link.active {
+    color: var(--primary) !important;
+}
+
+.btn {
+    padding: 14px 18px;
+    border-width: 2px;
+    border-radius: 0;
+}
+
+
+.hero::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(21, 20, 51, 0.8);
+    z-index: -1;
+}
+
+section {
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+.card-effect {
+    box-shadow: var(--box-shadow);
+    background-color: var(--white);
+    padding: 25px;
+    transition: all 0.35s ease;
+}
+
+.card-effect:hover {
+    box-shadow: none;
+    transform: translateY(5px);
+}
+
+.logoBox {
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary);
+    color: var(--white);
+    font-size: 32px;
+    border-radius: 100px;
+    flex: none;
+}
+
+
+.service {
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.service::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background-color: var(--primary);
+    z-index: -1;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+
+.service:hover .logoBox {
+    background-color: var(--white);
+    color: var(--primary);
+}
+
+.service:hover h5,
+.service:hover p {
+    color: var(--white);;
+}
+
+.service:hover::after {
+    opacity: 1;
+    top: 0;
+}
+
+
+.project {
+    position: relative;
+    overflow: hidden;
+}
+
+.project .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(21, 20, 51, 0.8);
+    padding: 30px;
+    display: flex;
+    align-items: flex-end;
+    transition: all 0.4s ease;
+    opacity: 0;
+}
+
+.project img {
+    transition: all 0.4s ease;   
+}
+
+.project:hover .overlay{
+    opacity: 1;
+}
+
+.project:hover img {
+    transform: scale(1.1);
+}
+
+
+.pricing i {
+    font-size: 20px;
+    color: var(--primary);
+}
+
+.pricing ul li {
+    margin-top: 8px;
+}
+
+.team-member img {
+    height: 125px;
+    width: 125px;
+    border-radius: 100px;
+}
+
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+}
+.social-icons a {
+    width: 34px;
+    height: 34px;
+    background-color: var(--primary);
+    border-radius: 2px solid var(--primary);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    margin-left: 5px;
+    transition: all 0.4s ease;
+    border: 2px solid var(--primary);
+}
+
+.social-icons a:hover {
+    color: var(--primary);
+    background-color: transparent;
+    border-color: var(--primarys);
+}
+
+
+form input.form-control {
+    height: 55px;
+}
+
+form .form-control {
+    border: transparent;
+    border-radius: 0;
+    background-color: rgba(0,0,0,0.021);
+}
+
+
+.footer-top {
+    padding-top: 90px;
+    padding-bottom: 90px;
+    background-color: var(--dark);
+}
+
+.footer-top a {
+    color: var(--body);
+}
+
+.footer-top a:hover {
+    color: var(--white);
+}
+
+.footer-bottom {
+    background-color: #21252e;
+}
+.recentWork {
+    height: 300px;
+    
+}
+.form-input {
+    position: relative;
+   
+  }
+  
+  .form-input input {
+    width: 100%;
+    height: 45px;
+    padding-left: 40px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    box-shadow: none;
+    border: 1px solid #00000020;
+    border-radius: 50px;
+    outline: none;
+    background: transparent;
+    
+  }
+  
+  .form-input span {
+    position: absolute;
+    top: 10px;
+    padding-left: 15px;
+    color: #007bff;
+  }
+  
+  .form-input input::placeholder {
+    color: black;
+    padding-left: 0px;
+  }
+  
+  .form-input input:focus,
+  .form-input input:valid {
+    border: 2px solid #007bff;
+  }
+  
+  .form-input input:focus::placeholder {
+    color: #454b69;
+  }
+  #navbarProfilePic{
+    object-fit: contain;
+    height:60px;
+   width: 60px;
+  }
+  .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #007bff !important;
+    border: 0px;
+  }
+  
+  .form-box button[type="submit"] {
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    background: #007bff;
+    color: #fff;
+    font-size: 90%;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    transition: 0.5s;
+    padding: 12px;
+  }
+  
+  .form-box button[type="submit"]:hover {
+    background: #0069d9;
+  }
+  
+  .forget-link,
+  .register-link {
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  .forget-link:hover,
+  .register-link:hover {
+    color: #0069d9;
+    text-decoration: none;
+  }
+  
+  .form-box .btn-social {
+    color: white !important;
+    border: 0;
+    font-weight: bold;
+  }
+  
+  .form-box .btn-facebook {
+    background: #4866a8;
+  }
+  
+  .form-box .btn-google {
+    background: #da3f34;
+  }
+  
+  .form-box .btn-twitter {
+    background: #33ccff;
+  }
+  
+  .form-box .btn-facebook:hover {
+    background: #3d578f;
+  }
+  
+  .form-box .btn-google:hover {
+    background: #bf3b31;
+  }
+  
+  .form-box .btn-twitter:hover {
+    background: #2eb7e5;
+  }
+  .loginInput{
+    display: inline-block;
+    text-align: center;
+  }
+  #logo1{
+      
+      font-weight: 800;
+  }

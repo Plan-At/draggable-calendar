@@ -113,10 +113,10 @@ export async function getUserId(){
 export function getToken(){
   // If return something null might cause 422 error when sending the request
   const potentialToken = getCookie("pa-token");
-  if (potentialToken != null) {
+  if (potentialToken != "") {
     return potentialToken;
   }
-  return "";
+  return "aaaaaaaa";
 }
 
 //sleep for ms

@@ -1,4 +1,4 @@
-import { div, btn, id, type, drag, body, value, text, extraClass } from './htmlutilities.js'; // Or the extension could be just `.js`
+import { div, btn, id, type, drag, body, value, text, extraClass, create } from './htmlutilities.js'; // Or the extension could be just `.js`
 import { Time } from './timeutilities.js';
 import { Event } from './event.js';
 import './createevent.js';
@@ -47,7 +47,9 @@ for (var i = 0; i < 8; i++) {
 
     for (var j = 0; j < 25; j++) {
         if(j == 0 && i != 0){
-            e3.appendChild(div("box", extraClass("boxTop",(i-1)==new Date().getDay() ? "now" : "notNow"), id((i-1)==new Date().getDay() ? "dated" : ""), text(daysOfWeek[i-1])));
+            var daybox = div("box", extraClass("boxTop",(i-1)==new Date().getDay() ? "now" : "notNow"), id((i-1)==new Date().getDay() ? "dated" : ""));
+            daybox.appendChild(create("h5", "mb-0", text(daysOfWeek[i-1])));
+            e3.appendChild(daybox);
         } else if (i == 0 && j != 0) {
             e3.appendChild(div("box", text(new Time(j-1, 0).format())));
         } else {

@@ -43,7 +43,7 @@ export function editEvent(user, eventId, eventName, eventDesc, start, end, callb
 }
 //create a new event
 export function newEvent(user, eventName, eventDesc, start, end, callback){
-    post("https://api.752628.xyz/v2/calendar/event/create", eventJSON(user, eventName, eventDesc, start, end), callback);
+  post("https://api.752628.xyz/v2/calendar/event/create", eventJSON(user, eventName, eventDesc, start, end), callback);
 }
 //delete an event
 export function deleteEvent(event, callback){
@@ -58,17 +58,6 @@ export function deleteEventById(id, callback){
 //generate json for an event
 export function eventJSON(user, eventName, eventDesc, start, end){
   return JSON.stringify({
-    "access_control_list": [
-      {
-        "canonical_name": "public",
-        "person_id": user+"",
-        "permission_list": [
-          "read_full",
-          "edit_full",
-          "delete"
-        ]
-      }
-    ],
     "display_name": eventName,
     "description": eventDesc,
     "start_time": {
@@ -83,6 +72,17 @@ export function eventJSON(user, eventName, eventDesc, start, end){
       "timezone_name": "string",
       "timezone_offset": 0
     },
+    "access_control_list": [
+      {
+        "canonical_name": "public",
+        "person_id": user,
+        "permission_list": [
+          "read_full",
+          "edit_full",
+          "delete"
+        ]
+      }
+    ],
     "type_list": [
       {
         "type_id": "string",

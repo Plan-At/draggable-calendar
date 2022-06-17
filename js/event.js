@@ -29,14 +29,15 @@ export class Event {
     toast2.style.marginBottom = -10000+"px";
 
     var header = div("card-header", text(this.name));
-    var closeButton = button("btn-close");
-    closeButton.addEventListener('click', ()=>{
-      console.log("click");
-      this.overview.remove();
-      deleteEvent(this);
-    });
-
-    header.appendChild(closeButton);
+    
+    //var closeButton = button("btn-close");
+    //closeButton.addEventListener('click', ()=>{
+    //  console.log("click");
+    //  this.overview.remove();
+    //  deleteEvent(this);
+    //});
+    //header.appendChild(closeButton);
+    
     toast2.appendChild(header);
     var cardbody = div("card-body");
     cardbody.appendChild(document.createTextNode(this.description));

@@ -1,6 +1,6 @@
 import { deleteEvent, deleteEventById, getEvents, getIDs, getUserId, newEvent, sleep } from './api.js';
 import { div, btn, button, id, type, drag, toast, strong, small, body, extraClass, value, create } from './htmlutilities.js';
-import { editButton } from './editevent.js';
+import { editButton, getDRP2 } from './editevent.js';
 
 // The header of the calendar
 const calendar = document.getElementById("top");
@@ -48,7 +48,7 @@ function displayEvent(eventInfo) {
   var startDate = new Date(eventInfo.start_time.timestamp_int*1000);
   var endDate = new Date(eventInfo.end_time.timestamp_int*1000);
   node.innerHTML = `
-    <div class="card-body", id="${eventInfo.event_id}body">
+    <div class="card-body" id="${eventInfo.event_id}body">
       <h3 class="card-title" id="eventHeader">${eventInfo.display_name}</h3>
       <h6 class="card-title" id="eventDate">
       ${startDate.toLocaleString()+" to "+endDate.toLocaleString()}
@@ -59,6 +59,13 @@ function displayEvent(eventInfo) {
   // Creates an edit button, on click it displays the edit event modal and adds a function that passes the event id to the submit edit button
   const edit = btn("btn", extraClass("btn-primary"), type("button"), value("Edit Event"), id("editEvent2"), ["data-bs-toggle", "modal"], ["data-bs-target", "#editEvent"]);
   edit.addEventListener('click', ()=>document.getElementById("editbutton").onclick = function(){editButton(eventInfo.event_id)});
+  // When the edit button is clicked it enters the current values of the title, time, and description of the event
+  edit.addEventListener('click', ()=>document.getElementById("event-name2").value = eventInfo.display_name);
+  edit.addEventListener('click', ()=>document.getElementById("event-desc2").value = eventInfo.description);
+  //console.log(startDate.toISOString().substring(0, 10) + " " + startDate.toString().substring(16, 24));
+  //console.log(endDate.toISOString().substring(0, 10) + " " + endDate.toString().substring(16, 24));
+  //edit.addEventListener('click', ()=>getDRP2().setStartDate(startDate.toISOString().substring(0, 10) + " " + startDate.toString().substring(16, 24)));
+  //edit.addEventListener('click', ()=>getDRP2().setEndDate(endDate.toISOString().substring(0, 10) + " " + endDate.toString().substring(16, 24)));
   // Creates a delete button, on click it uses the server to delete the event and refreshes the manage events modal
   const delt = btn("btn", extraClass("btn-danger"), type("button"), value("Delete Event"), id("delbutton"));
   delt.addEventListener('click', ()=>deleteEventById(eventInfo.event_id));
@@ -70,4 +77,6 @@ function displayEvent(eventInfo) {
   node.appendChild(edit);
   node.appendChild(delt);
   manageEvents.appendChild(node);
+  // Creates space
+  manageEvents.appendChild(div("card-footer"));  
 }

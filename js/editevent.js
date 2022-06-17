@@ -14,7 +14,7 @@ edit2.innerHTML = `
 <div class="modal-dialog">
 <div class="modal-content">
   <div class="modal-header">
-    <h5 class="modal-title" id="editEventLabel">New Event</h5>
+    <h5 class="modal-title" id="editEventLabel">Edit Event</h5>
     <button type="button" class="btn-close" data-bs-toggle="modal" href="#manageEvents"></button>
   </div>
   <div class="modal-body">
@@ -31,8 +31,7 @@ edit2.innerHTML = `
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" id="editclose" class="btn btn-secondary" data-bs-toggle="modal" href="#manageEvents">Cancel</button>
-    <button class="btn btn-primary" data-bs-target="#makeReoccuring" data-bs-toggle="modal">Make Reoccuring</button>
+    <button type="button" id="editclose" class="btn btn-secondary" data-bs-toggle="modal" href="#manageEvents">Back</button>
     <button type="submit" id="editbutton" class="btn btn-primary" data-bs-toggle="modal" href="#manageEvents">Submit</button>
   </div>
 </div>
@@ -49,8 +48,9 @@ submit2.addEventListener('click', displayEventList);
 
 // Creates and shows a date range picker in the create event modal and saves the timestamps when the user submits dates
 var timestampStart2, timestampEnd2;
-window.addEventListener("load", function (event) {
-  let drp = new DateRangePicker('datetimerange-input2',
+var drp2;
+window.addEventListener("load", function (event2) {
+  drp2 = new DateRangePicker('datetimerange-input2',
     {
       timePicker: true,
       alwaysShowCalendars: true,
@@ -66,18 +66,26 @@ window.addEventListener("load", function (event) {
     },
     function (start, end) {
     })
-  window.addEventListener('apply.daterangepicker', function (ev) {
-    console.log(ev.detail.startDate.unix());
-    console.log(ev.detail.endDate.unix());
-    timestampStart2 = ev.detail.startDate.unix();
-    timestampEnd2 = ev.detail.endDate.unix();
+  window.addEventListener('apply.daterangepicker', function (ev2) {
+    console.log(ev2.detail.startDate.unix());
+    console.log(ev2.detail.endDate.unix());
+    timestampStart2 = ev2.detail.startDate.unix();
+    timestampEnd2 = ev2.detail.endDate.unix();
   });
 });
+
+// Gets the date range picker
+export function getDRP2() {
+  return drp2;
+}
+
+// Gets the user's id
+const user = await getUserId();
 
 // Gets the event name, event description, timestamp start, and timestamp end from the modal and creates a new event
 export function editButton(eventId) {
   const eventName2 = document.getElementById("event-name2").value;
   const eventDesc2 = document.getElementById("event-desc2").value;
 
-  editEvent(getUserId(), eventId, eventName2, eventDesc2, timestampStart2, timestampEnd2, () => { });
+  editEvent(user, eventId, eventName2, eventDesc2, timestampStart2, timestampEnd2, () => { });
 }

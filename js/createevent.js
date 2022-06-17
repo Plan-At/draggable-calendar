@@ -1,4 +1,4 @@
-import { newEvent } from './api.js';
+import { newEvent, getUserId } from './api.js';
 import { div, btn, button, id, type, drag, toast, strong, small, body, extraClass, value, create } from './htmlutilities.js';
 
 // The header of the calendar
@@ -32,8 +32,7 @@ create2.innerHTML = `
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" id="createclose" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-    <button class="btn btn-primary" data-bs-target="#makeReoccuring" data-bs-toggle="modal">Make Reoccuring</button>
+    <button type="button" id="createclose" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
     <button type="submit" id="submitbutton" class="btn btn-primary">Submit</button>
   </div>
 </div>
@@ -105,10 +104,13 @@ window.addEventListener("load", function (event) {
   });
 });
 
+// Gets the user's id
+const user = await getUserId();
+
 // Gets the event name, event description, timestamp start, and timestamp end from the modal and creates a new event
 export function submitButton() {
   const eventName = document.getElementById("event-name").value;
-
   const eventDesc = document.getElementById("event-desc").value;
-  newEvent("1234567890", "aaaaaaaa", eventName, eventDesc, timestampStart, timestampEnd, () => { });
+
+  newEvent(user, eventName, eventDesc, timestampStart, timestampEnd, () => { });
 }

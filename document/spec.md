@@ -28,7 +28,7 @@
 |Alex Stedman|5/31/2022|Rough Draft|Tried again to do formatting and failed|
 |Alex Stedman|6/2/2022|Rough Draft|Added an event manager from Jack that makes it easier to view all events|
 |Alex Stedman|6/10/2022|Production|Cleaned up event manager, and added more of jack's code|
-
+|Alex Stedman|6/17/2022|Production|Final touches to the documentation|
 
 
 
@@ -48,9 +48,9 @@ Calendar page with date highlighting for the current date.
 The calendar button box, allowing a person to select a week, create a new event, and manage event
 ![header](./header.PNG)
 The event management menu (credit to jack for doing this, but some integration work was needed)
-![header](./manage.PNG)
+![manage](./manage.PNG)
 The event creation and modification menu (credit to jack for doing this, but some integration work was needed)
-![header](./event.PNG)
+![event](./event.PNG)
 
 ## Feature Description
 Sections of the project:
@@ -63,4 +63,6 @@ Sections of the project:
    not all events are in the same week, so the manage menu allows you to view all events easier
 4. Current week highlighting
    help the user find the current week
+5. Create event menu:
+   navigatable UI with buttons and good formatting
 

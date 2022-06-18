@@ -47,7 +47,10 @@ Calendar page with date highlighting for the current date.
 ![calendar](./calendar.PNG)
 The calendar button box, allowing a person to select a week, create a new event, and manage event
 ![header](./header.PNG)
-
+The event management menu (credit to jack for doing this, but some integration work was needed)
+![header](./manage.PNG)
+The event creation and modification menu (credit to jack for doing this, but some integration work was needed)
+![header](./event.PNG)
 
 ## Feature Description
 Sections of the project:

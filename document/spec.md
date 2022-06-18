@@ -45,11 +45,11 @@ view and edit all events in a separate menu
 ## Scenario Description
 Calendar page with date highlighting for the current date.
 ![calendar](./calendar.PNG)
-The calendar button box, allowing a person to select a week, create a new event, and manage event
+The calendar button box, allowing a person to select a week, create a new event, and manage event.
 ![header](./header.PNG)
-The event management menu (credit to jack for doing this, but some integration work was needed)
+The event management menu (credit to jack for doing this, but some integration work was needed).
 ![manage](./manage.PNG)
-The event creation and modification menu (credit to jack for doing this, but some integration work was needed)
+The event creation and modification menu (credit to jack for doing this, but some integration work was needed).
 ![event](./event.PNG)
 
 ## Feature Description

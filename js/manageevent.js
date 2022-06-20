@@ -62,10 +62,8 @@ function displayEvent(eventInfo) {
   // When the edit button is clicked it enters the current values of the title, time, and description of the event
   edit.addEventListener('click', ()=>document.getElementById("event-name2").value = eventInfo.display_name);
   edit.addEventListener('click', ()=>document.getElementById("event-desc2").value = eventInfo.description);
-  //console.log(startDate.toISOString().substring(0, 10) + " " + startDate.toString().substring(16, 24));
-  //console.log(endDate.toISOString().substring(0, 10) + " " + endDate.toString().substring(16, 24));
-  //edit.addEventListener('click', ()=>getDRP2().setStartDate(startDate.toISOString().substring(0, 10) + " " + startDate.toString().substring(16, 24)));
-  //edit.addEventListener('click', ()=>getDRP2().setEndDate(endDate.toISOString().substring(0, 10) + " " + endDate.toString().substring(16, 24)));
+  edit.addEventListener('click', ()=>getDRP2().setStartDate(startDate.toISOString().substring(0, 8) + startDate.getDate() + " " + startDate.toString().substring(16, 24)));
+  edit.addEventListener('click', ()=>getDRP2().setEndDate(endDate.toISOString().substring(0, 8) + endDate.getDate() + " " + endDate.toString().substring(16, 24)));
   // Creates a delete button, on click it uses the server to delete the event and refreshes the manage events modal
   const delt = btn("btn", extraClass("btn-danger"), type("button"), value("Delete Event"), id("delbutton"));
   delt.addEventListener('click', ()=>deleteEventById(eventInfo.event_id));
